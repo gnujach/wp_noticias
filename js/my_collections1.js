@@ -1,9 +1,6 @@
 "use strict";
+var showPost = (function($) {
 var app = {};
-// Backbone.View.prototype.close = function () {
-//   this.$el.empty();
-//   this.unbind();
-// };
 app.AppView = Backbone.View.extend({
 	el: '.app',	
 	initialize: function(){
@@ -102,10 +99,7 @@ app.Rutas = Backbone.Router.extend({
 				}
 		});
 	},
-	index: function(){
-		//app.view.close();		
-		//app.posts = new wp.api.collections.Posts({reset:true});
-		//Creamos la collection principal
+	index: function(){		
 		this.load();
 	},
 	load: function () {
@@ -130,9 +124,9 @@ app.Rutas = Backbone.Router.extend({
 								var vista = new app.ItemView({
 										model:post,						
 								});								
-								app.appView.$list.append(vista.render().$el);
+								appView.$list.append(vista.render().$el);
 								if (myArray.length % 3 === 0 )
-									app.appView.$list.append('</div><div class="row">');
+									appView.$list.append('</div><div class="row">');
 								// var listView = new app.ListView({collection: app.posts});								
 								// this.appView.showView(listView);	
 								console.log("has more post: "+ app.posts.hasMore());						
@@ -283,10 +277,11 @@ app.Rutas = Backbone.Router.extend({
 	      console.log(this.collection.toJSON());
 	      return this;
 	    }
+	    var appView = new app.AppView();	
+		var rutas = new app.Rutas({ appView: appView});
   });
-
+});
 jQuery(document).ready(function($) {
-	app.appView = new app.AppView();	
-	var rutas = new app.Rutas({ appView: app.appView});	
+	showPost();
 	Backbone.history.start();
 });	
