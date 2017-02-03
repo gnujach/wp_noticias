@@ -150,7 +150,7 @@ app.Rutas = Backbone.Router.extend({
 		//app.post = new wp.api.models.Post( { id: id } );
 		app.post = app.posts.get(id);
 		wp.api.loadPromise.done( function() {	
-			app.appView.$list.empty();			
+			appView.$list.empty();			
 			var url_img = "http://127.0.0.1/backbone/wp-content/uploads/2016/12/office360-150x147.png";			
 			app.post.fetch().done(function () {
 				if 	(app.post.get('featured_media') != 0) {
@@ -163,7 +163,7 @@ app.Rutas = Backbone.Router.extend({
 						var vistaPost = new app.ItemViewPost({
 							model:app.post
 						});
-						app.appView.$list.append(vistaPost.render().$el);						
+						appView.$list.append(vistaPost.render().$el);						
 					});
 				}
 				//  else {
@@ -276,10 +276,10 @@ app.Rutas = Backbone.Router.extend({
 	      this.collection.each(this.renderItem, this);
 	      console.log(this.collection.toJSON());
 	      return this;
-	    }
-	    var appView = new app.AppView();	
-		var rutas = new app.Rutas({ appView: appView});
+	    }	    
   });
+	var appView = new app.AppView();	
+	var rutas = new app.Rutas({ appView: appView});
 });
 jQuery(document).ready(function($) {
 	showPost();
